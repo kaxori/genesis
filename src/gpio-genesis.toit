@@ -39,4 +39,6 @@ class AX22:
   static P3/int ::= 2
 
   static gpio module/int port/int -> int:
+    if module < 1 or module > 8: throw "wrong module position"
+    if port < 1 or port > 2: throw "wrong module port number"
     return GPIO-AX22[module - 1][port - 1]

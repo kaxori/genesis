@@ -1,4 +1,5 @@
 import gpio
+import gpio.pwm
 import .gpio-genesis
 
 blink-time := 500
@@ -38,3 +39,25 @@ main:
     toggle-switch.wait_for 1
  
 
+
+  // Buzzer AX22-0012 #6 
+  print "Buzzer: gpio $(AX22.gpio 6 2)"
+  buzzer := gpio.Pin (AX22.gpio 6 2)
+
+  buzzer-beep := (:: | freq duration |
+    generator := pwm.Pwm --frequency=freq
+    channel := generator.start buzzer --duty-factor=0.5
+    sleep --ms=duration
+    channel.close
+    generator.close
+    )
+
+  buzzer-beep.call 2000 150
+  sleep --ms= 50
+  buzzer-beep.call 2000 150
+  sleep --ms= 50
+  buzzer-beep.call 2000 150
+  sleep --ms= 50
+  buzzer-beep.call 400 600
+
+  
