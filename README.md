@@ -2,10 +2,10 @@
 
 Collected findings from experiments with axiometa genesis board.
 
-Environment: PC Win11, Powershell, Visual Studio Code<br>
-Controller: ESP32-S3<br>
-Main board, modules: [Axiometa genesis](https://axiometa.ai/genesis/)<br>
-Programming: Toit jaguar<br>
+**Environment**: PC Win11, Powershell, Visual Studio Code<br>
+**Controller**: ESP32-S3<br>
+**Main board, module**s: [Axiometa genesis](https://axiometa.ai/genesis/)<br>
+**Programming**: Toit jaguar<br>
 
 
 
@@ -44,14 +44,14 @@ Attention when occupying module space #1: **Port 2 **is identical to ESP **boot 
 
 
 ### first AX22-module configuration 
-  1. LDR -0005
-  2. DHT11 -0011
-  3. RGB-Led -0006 *3x LED (RGB)*
-  4. TrafficLight -0024 *3x LED (RYG)*
-  5. NeoPixelMatrix -0028 *15x RGB*
-  6. ✅ Buzzer -0012 
-  7. KeyboardKey -0027 *1x RGB*
-  8. ✅ ToggleSwitch -0022
+    1. LDR -0005
+    2. DHT11 -0011
+    3. RGB-Led -0006 *3x LED (RGB)*
+    4. TrafficLight -0024 *3x LED (RYG)*
+    5. NeoPixelMatrix -0028 *15x RGB*
+    6. ✅ Buzzer -0012 
+    7. KeyboardKey -0027 *1x RGB*
+    8. ✅ ToggleSwitch -0022
 
 
 - toit app [**test-config1.toit**](.\src\test-config1.toit) tests the modules.
