@@ -55,5 +55,5 @@ Attention when occupying **module space #1**: **Port 2** is identical to ESP **b
 
 
 - toit app [**test-config1.toit**](.\src\test-config1.toit) tests the modules.
-- git link: toit app [**test-config1.toit**](test-config1.toit) tests the modules.
+- git link: toit app [**test-config1.toit**](/src/test-config1.toit) tests the modules.
 - run toit app: `jag run .\test-config1.toit`
