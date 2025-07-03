@@ -8,7 +8,7 @@ Main board, modules: [Axiometa genesis](https://axiometa.ai/genesis/)<br>
 Programming: Toit jaguar<br>
 
 
-![Main board](main-board.png)
+
 
 
 ## 1. setup controller with Toit jaguar
@@ -26,6 +26,7 @@ Programming: Toit jaguar<br>
     sdkVersion: v2.0.0-alpha.184
     wordSize: 4
 ```
+- toit app [**test-esp**](.\src\test-esp.toit)
 - run **example**: `jag run .\test-esp.toit`
   - onboard led **blinks slowly**
   - if boot button is pressed then the led **blinks faster**
@@ -33,4 +34,23 @@ Programming: Toit jaguar<br>
 
 ## 2. checking AX22 modules
 
-### 
+The **main board** has places for 8 AX22 modules. *It carries useful information:* The **GPIO port numbers** are printed on the module positions.
+![Main board](main-board.png)
+
+The genesis eletronics kit contains more than 20 **AX22 modules**.<br>
+Attention when occupying module space #1: **Port 2 **is identical to ESP **boot button**.
+
+![AX22 module](ax22-module-1.png)
+
+
+### first AX22-module configuration 
+  1. LDR -0005
+  2. DHT11 -0011
+  3. RGB-Led -0006 *3x LED (RGB)*
+  4. TrafficLight -0024 *3x LED (RYG)*
+  5. NeoPixelMatrix -0028 *15x RGB*
+  6. Buzzer -0012 
+  7. KeyboardKey -0027 *1x RGB*
+  8. ToggleSwitch -0022
+
+test-config1.toit
