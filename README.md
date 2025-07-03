@@ -49,8 +49,10 @@ Attention when occupying module space #1: **Port 2 **is identical to ESP **boot 
   3. RGB-Led -0006 *3x LED (RGB)*
   4. TrafficLight -0024 *3x LED (RYG)*
   5. NeoPixelMatrix -0028 *15x RGB*
-  6. Buzzer -0012 
+  6. ✅ Buzzer -0012 
   7. KeyboardKey -0027 *1x RGB*
-  8. ToggleSwitch -0022
+  8. ✅ ToggleSwitch -0022
 
-test-config1.toit
+
+- toit app [**test-config1.toit**](.\src\test-config1.toit) tests the modules.
+- run toit app: `jag run .\test-config1.toit`
