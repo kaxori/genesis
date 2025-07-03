@@ -2,9 +2,13 @@
 
 Collected findings from experiments with axiometa genesis board.
 
-Environment: PC Win11, Powershell, Visual Studio Code
-Controller: ESP32-S3
-Programming: Toit jaguar
+Environment: PC Win11, Powershell, Visual Studio Code<br>
+Controller: ESP32-S3<br>
+Main board, modules: [Axiometa genesis](https://axiometa.ai/genesis/)<br>
+Programming: Toit jaguar<br>
+
+
+![Main board](main-board.png)
 
 
 ## 1. setup controller with Toit jaguar
