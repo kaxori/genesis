@@ -26,7 +26,7 @@ Collected findings from experiments with axiometa genesis board.
     sdkVersion: v2.0.0-alpha.184
     wordSize: 4
 ```
-- toit app [**test-esp**](.\src\test-esp.toit)
+- toit app [**test-esp**](/src/test-esp.toit)
 - run **example**: `jag run .\test-esp.toit`
   - onboard led **blinks slowly**
   - if boot button is pressed then the led **blinks faster**
@@ -54,6 +54,5 @@ Attention when occupying **module space #1**: **Port 2** is identical to ESP **b
     8. ✅ ToggleSwitch -0022
 
 
-- toit app [**test-config1.toit**](.\src\test-config1.toit) tests the modules.
-- git link: toit app [**test-config1.toit**](/src/test-config1.toit) tests the modules.
+- toit app [**test-config1.toit**](/src/test-config1.toit) tests the modules.
 - run toit app: `jag run .\test-config1.toit`
