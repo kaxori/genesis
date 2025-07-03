@@ -38,7 +38,7 @@ The **main board** has places for 8 AX22 modules. *It carries useful information
 ![Main board](main-board.png)
 
 The genesis eletronics kit contains more than 20 **AX22 modules**.<br>
-Attention when occupying module space #1: **Port 2 **is identical to ESP **boot button**.
+Attention when occupying **module space #1**: **Port 2** is identical to ESP **boot button**.
 
 ![AX22 module](ax22-module-1.png)
 
@@ -46,8 +46,8 @@ Attention when occupying module space #1: **Port 2 **is identical to ESP **boot 
 ### first AX22-module configuration 
     1. LDR -0005
     2. DHT11 -0011
-    3. RGB-Led -0006 *3x LED (RGB)*
-    4. TrafficLight -0024 *3x LED (RYG)*
+    3. ✅ RGB-Led -0006 *3x LED (RGB)*
+    4. ✅ TrafficLight -0024 *3x LED (RYG)*
     5. NeoPixelMatrix -0028 *15x RGB*
     6. ✅ Buzzer -0012 
     7. KeyboardKey -0027 *1x RGB*

@@ -52,12 +52,59 @@ main:
     generator.close
     )
 
-  buzzer-beep.call 2000 150
-  sleep --ms= 50
-  buzzer-beep.call 2000 150
-  sleep --ms= 50
-  buzzer-beep.call 2000 150
-  sleep --ms= 50
-  buzzer-beep.call 400 600
+  if false:
+    buzzer-beep.call 2000 150
+    sleep --ms= 50
+    buzzer-beep.call 2000 150
+    sleep --ms= 50
+    buzzer-beep.call 2000 150
+    sleep --ms= 50
+    buzzer-beep.call 400 600
 
   
+  // Traffic Light AX22-0024 #4
+  print "Traffic light: gpio $(GPIO-AX22[3])"
+  traffic-light := [
+    gpio.Pin (AX22.gpio 4 1) --output, // red
+    gpio.Pin (AX22.gpio 4 2) --output, // yellow
+    gpio.Pin (AX22.gpio 4 3) --output // green
+    ]
+
+
+  task :: while true:
+    // red
+    traffic-light[0].set 1
+    sleep --ms=3000
+
+    // yellow red
+    traffic-light[1].set 1
+    sleep --ms=1000
+
+    // green
+    traffic-light[0].set 0
+    traffic-light[1].set 0
+    traffic-light[2].set 1
+    sleep --ms=2000
+
+    // yellow
+    traffic-light[2].set 0
+    traffic-light[1].set 1
+    sleep --ms=1000
+    traffic-light[1].set 0
+
+
+  // RGB -0006 #3
+  print "RGB-LED: gpio $(GPIO-AX22[2])"
+  rgb-led := [
+    gpio.Pin (AX22.gpio 3 1) --output, // red
+    gpio.Pin (AX22.gpio 3 2) --output, // green
+    gpio.Pin (AX22.gpio 3 3) --output  // blue
+    ]
+
+  task :: while true:
+    8.repeat:
+      print "$it $(it & 1)  $(it & 2)  $(it & 4) "
+      rgb-led[0].set (it & 1 != 0 ? 1 : 0)
+      rgb-led[1].set (it & 2  != 0 ? 1 : 0)
+      rgb-led[2].set (it & 4 != 0  ? 1 : 0)
+      sleep --ms=500
