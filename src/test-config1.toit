@@ -1,5 +1,6 @@
 import gpio
 import gpio.pwm
+import gpio.adc
 import pixel_strip show *
 import bitmap show bytemap-zap
 import .gpio-genesis
@@ -118,7 +119,7 @@ main:
   b := ByteArray NUM-PIXELS
 
   task :: while true:
-    (random 1 8).repeat:
+    (random 2 9).repeat:
       p := random NUM-PIXELS
       r[p] = random 1 256
       g[p] = random 1 256
@@ -158,3 +159,8 @@ main:
 
     
 
+  // LDR AX22-0005 #1
+  adc := adc.Adc (gpio.Pin (AX22.gpio 1 1))
+  task :: while true:
+    print "- LDR $(%2d (adc.get --raw)*100/4096) %"
+    sleep --ms=5000

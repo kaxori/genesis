@@ -44,7 +44,7 @@ Attention when occupying **module space #1**: **Port 2** is identical to ESP **b
 
 
 ### first AX22-module configuration 
-    1. LDR -0005
+    1. ✅ LDR -0005
     2. DHT11 -0011
     3. ✅ RGB-Led -0006 *3x LED (RGB)*
     4. ✅ TrafficLight -0024 *3x LED (RYG)*
