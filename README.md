@@ -34,7 +34,7 @@ Collected findings from experiments with axiometa genesis board.
 
 ## 2. checking AX22 modules
 
-The **main board** has places for 8 AX22 modules. *It carries useful information:* The **GPIO port numbers** are printed on the module positions.
+The **main board** has places for 8 AX22 modules. <br>*It carries useful information:* The **GPIO port numbers** are printed on the module positions.
 ![Main board](main-board.png)
 
 The genesis eletronics kit contains more than 20 **AX22 modules**.<br>
@@ -44,8 +44,10 @@ Attention when occupying **module space #1**: **Port 2** is identical to ESP **b
 
 
 ### first AX22-module configuration 
+![Module configuration](config1-1.jpg)
+
     1. ✅ LDR -0005
-    2. DHT11 -0011
+    2. ✅ DHT11 -0011
     3. ✅ RGB-Led -0006 *3x LED (RGB)*
     4. ✅ TrafficLight -0024 *3x LED (RYG)*
     5. ✅ NeoPixelMatrix -0028 *15x RGB*
@@ -54,5 +56,6 @@ Attention when occupying **module space #1**: **Port 2** is identical to ESP **b
     8. ✅ ToggleSwitch -0022
 
 
-- toit app [**test-config1.toit**](/src/test-config1.toit) tests the modules.
-- run toit app: `jag run .\test-config1.toit`
+- toit app [**test-config1.toit**](/src/test-config1.toit) tests the modules and prints out results on monitor.
+  - run monitor: `jag monitor -p COMx`
+  - run toit app: `jag run .\test-config1.toit`

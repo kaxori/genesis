@@ -1,6 +1,7 @@
 import gpio
 import gpio.pwm
 import gpio.adc
+import dhtxx
 import pixel_strip show *
 import bitmap show bytemap-zap
 import .gpio-genesis
@@ -163,4 +164,11 @@ main:
   adc := adc.Adc (gpio.Pin (AX22.gpio 1 1))
   task :: while true:
     print "- LDR $(%2d (adc.get --raw)*100/4096) %"
+    sleep --ms=5000
+
+
+  // DHT11 AX22-0011 #2
+  dht11 := dhtxx.Dht11 (gpio.Pin (AX22.gpio 2 2))
+  task :: while true:
+    print "- DHT11 $dht11.read"
     sleep --ms=5000
