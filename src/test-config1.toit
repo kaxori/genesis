@@ -45,7 +45,6 @@ main:
   // Buzzer AX22-0012 #6 
   print "Buzzer: gpio $(AX22.gpio 6 2)"
   buzzer := gpio.Pin (AX22.gpio 6 2)
-
   buzzer-beep := (:: | freq duration |
     generator := pwm.Pwm --frequency=freq
     channel := generator.start buzzer --duty-factor=0.5
@@ -54,7 +53,7 @@ main:
     generator.close
     )
 
-  if false:
+  if true:
     buzzer-beep.call 2000 150
     sleep --ms= 50
     buzzer-beep.call 2000 150
@@ -71,7 +70,6 @@ main:
     gpio.Pin (AX22.gpio 4 2) --output, // yellow
     gpio.Pin (AX22.gpio 4 3) --output // green
     ]
-
 
   task :: while true:
     // red
@@ -106,7 +104,7 @@ main:
   task :: while true:
     8.repeat:
       rgb-led[0].set (it & 1 != 0 ? 1 : 0)
-      rgb-led[1].set (it & 2  != 0 ? 1 : 0)
+      rgb-led[1].set (it & 2 != 0 ? 1 : 0)
       rgb-led[2].set (it & 4 != 0  ? 1 : 0)
       sleep --ms=500
 
@@ -135,4 +133,28 @@ main:
 
       neopixels.output r g b
       sleep --ms=1
+
+
+  // KeyboardKey AX22-0027 #7
+  print "KeyboardKey"
+  keyboard-key := gpio.Pin (AX22.gpio 7 2) --input --pull-up=true
+  keyboard-led := PixelStrip.uart 1 --pin=(gpio.Pin (AX22.gpio 7 3) --output) --bytes-per-pixel=3
+  rgb := [ByteArray 1, ByteArray 1, ByteArray 1]
+  3.repeat: rgb[it][0] = 255
+
+  task :: while true:
+    keyboard-led.output rgb[0] rgb[1] rgb[2]
+    sleep --ms=500
+    keyboard-led.output (ByteArray 1) (ByteArray 1) (ByteArray 1)
+    sleep --ms=500
+
+  task :: while true:
+    keyboard-key.wait-for 0
+    keyboard-key.wait-for 1
+    r8 := random 1 7
+    rgb[0][0] = (r8 & 1 != 0 ? 255 : 0)
+    rgb[1][0] = (r8 & 2 != 0 ? 255 : 0)
+    rgb[2][0] = (r8 & 4 != 0 ? 255 : 0)
+
+    
 
