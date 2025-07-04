@@ -1,5 +1,7 @@
 import gpio
 import gpio.pwm
+import pixel_strip show *
+import bitmap show bytemap-zap
 import .gpio-genesis
 
 blink-time := 500
@@ -93,7 +95,7 @@ main:
     traffic-light[1].set 0
 
 
-  // RGB -0006 #3
+  // RGB-Led AX22-0006 #3
   print "RGB-LED: gpio $(GPIO-AX22[2])"
   rgb-led := [
     gpio.Pin (AX22.gpio 3 1) --output, // red
@@ -103,8 +105,34 @@ main:
 
   task :: while true:
     8.repeat:
-      print "$it $(it & 1)  $(it & 2)  $(it & 4) "
       rgb-led[0].set (it & 1 != 0 ? 1 : 0)
       rgb-led[1].set (it & 2  != 0 ? 1 : 0)
       rgb-led[2].set (it & 4 != 0  ? 1 : 0)
       sleep --ms=500
+
+    
+  // NeoPixelMatrix AX22-0028 #5
+  NUM-PIXELS ::= 25
+  pin := gpio.Pin (AX22.gpio 5 2) --output
+  neopixels := PixelStrip.uart NUM-PIXELS --pin=pin --bytes-per-pixel=3
+  r := ByteArray NUM-PIXELS
+  g := ByteArray NUM-PIXELS
+  b := ByteArray NUM-PIXELS
+
+  task :: while true:
+    (random 1 8).repeat:
+      p := random NUM-PIXELS
+      r[p] = random 1 256
+      g[p] = random 1 256
+      b[p] = random 1 256
+      neopixels.output r g b
+    
+    256.repeat: 
+      NUM-PIXELS.repeat:
+        r[it] = max (r[it] - 1) 0
+        g[it] = max (g[it] - 1) 0
+        b[it] = max (b[it] - 1) 0
+
+      neopixels.output r g b
+      sleep --ms=1
+
