@@ -32,6 +32,27 @@ main:
     print "- boot button released"
 
 
+
+
+  // MicroPhone AX22-0009 #2 1
+  if false:
+    print "MicroPhone"
+    mic := adc.Adc (gpio.Pin (AX22.gpio 2 1))
+    peak := 0
+    task :: while true:
+      value := (mic.get --raw )
+      peak = max peak value
+      if value > 2300:
+        print "- noise $value"
+      sleep --ms=10
+
+    task :: while true:
+      sleep --ms=5000
+      print "peak: $peak"
+      peak = 0
+
+
+
     
   // NeoPixelMatrix AX22-0028 #8
   NUM-PIXELS ::= 25
@@ -91,9 +112,9 @@ main:
 
   percent /int := 0
   dpad-state /int := 0
-  adc := adc.Adc (gpio.Pin (AX22.gpio 1 1))
+  dpad-value := adc.Adc (gpio.Pin (AX22.gpio 1 1))
   get-percent := ( :: 
-    percent = (adc.get --raw) * 100 / 4096; 
+    percent = (dpad-value.get --raw) * 100 / 4096; 
     percent
     )
 
@@ -124,6 +145,6 @@ main:
       sleep --ms=duration
     )
 
-  3.repeat: vibrate.call (random 150 500)
+  1.repeat: vibrate.call (random 150 500)
 
-  
+

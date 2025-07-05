@@ -64,10 +64,9 @@ Attention when occupying **module space #1**: **Port 2** is identical to ESP **b
 ![Module configuration](config2.jpg)
 
     1. ✅ D-Pad 0016
-    2. MicroPhone 0009
-    3. ✅ VibrationMotor 0013
+    2. ❌ MicroPhone 0009 ? **total insensitive**
     4. ✅ Vibration Switch 0025
-    5. ToF 0015 VL53LOCX
+    5. ToF 0015 VL53L0CX
     6. Accelerometer 0030 MPU6050
     7. ✅ KeyboardKey 0027  1x RGB
     8. ✅ NeoPixelMatrix 0028 15x RGB
