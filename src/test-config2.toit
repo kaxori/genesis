@@ -105,4 +105,25 @@ main:
     while get-percent.call < THRESHOLDS[0]: sleep --ms=100  
 
 
-  //
+  // Vibration Switch AX22-0025 #4 2
+  print "Vibration switch"
+  vibration-switch := gpio.Pin (AX22.gpio 4 2) --input --pull-up=true
+  task :: while true:
+    vibration-switch.wait-for 0
+    vibration-switch.wait-for 1
+    print "- vibration" 
+    sleep --ms=20
+
+  // VibrationMotor AX22-0013 #3 2
+  print "Vibration motor"
+  vibration-motor := gpio.Pin (AX22.gpio 3 2) --output
+  vibrate := (:: |  duration |
+      vibration-motor.set 1
+      sleep --ms=duration
+      vibration-motor.set 0
+      sleep --ms=duration
+    )
+
+  3.repeat: vibrate.call (random 150 500)
+
+  
