@@ -59,3 +59,19 @@ Attention when occupying **module space #1**: **Port 2** is identical to ESP **b
 - toit app [**test-config1.toit**](/src/test-config1.toit) tests the modules and prints out results on monitor.
   - run monitor: `jag monitor -p COMx`
   - run toit app: `jag run .\test-config1.toit`
+
+### Second AX22-module configuration 
+![Module configuration](config2.jpg)
+
+    1. ✅ D-Pad 0016
+    2. MicroPhone 0009
+    3. VibrationMotor 0013
+    4. Vibration Switch 0025
+    5. ToF 0015 VL53LOCX
+    6. Accelerometer 0030 MPU6050
+    7. ✅ KeyboardKey 0027  1x RGB
+    8. ✅ NeoPixelMatrix 0028 15x RGB
+
+- toit app [**test-config2.toit**](/src/test-config2.toit) tests the modules and prints out results on monitor.
+  - run monitor: `jag monitor -p COMx`
+  - run toit app: `jag run .\test-config2.toit`

@@ -168,7 +168,7 @@ main:
 
 
   // DHT11 AX22-0011 #2
-  dht11 := dhtxx.Dht11 (gpio.Pin (AX22.gpio 2 2))
+  dht11 := dhtxx.Dht1                       1 (gpio.Pin (AX22.gpio 2 2))
   task :: while true:
     print "- DHT11 $dht11.read"
     sleep --ms=5000
