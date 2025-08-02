@@ -74,3 +74,12 @@ Attention when occupying **module space #1**: **Port 2** is identical to ESP **b
 - toit app [**test-config2.toit**](/src/test-config2.toit) tests the modules and prints out results on monitor.
   - run monitor: `jag monitor -p COMx`
   - run toit app: `jag run .\test-config2.toit`
+
+
+#### BLE remote camera
+While playing around with the AX22 modules, I came across the VL53L0CX and immediately thought about implementing a smartphone camera shutter. When searching for BLE information, I was overwhelmed by the complexity. Since I had no experience with BLE and wanted quick results, I ordered a small BLE hardware switch **BT1818** for my initial experiments.  
+It took a while, however, before our own experiments bore fruit. Information and tools from **nRF**, and of course, a particularly clever artificial Frenchman named **Claude**, were particularly helpful.  
+The first implementation in Toit **test-camera** uses only the AX22 keypad module and triggers it at the push of a button.  
+Start scan on smartphone (it has to support BLE!) and pair **BLE Camera**. If successful, **volume up** is sent when the button is pressed, which triggers a photo capture in many camera apps.  
+![Pairing](BLE%20Camera.jpg)  
+The basis for sensor-controlled smartphone recordings is in place and now the various modules of the **Axiometa genesis board** can be used according to your own inspiration.
