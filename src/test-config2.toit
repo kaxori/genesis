@@ -1,16 +1,25 @@
 import gpio
 import gpio.pwm
 import gpio.adc
+import gpio
+import i2c
 import dhtxx
 import pixel_strip show *
 import bitmap show bytemap-zap
 import .gpio-genesis
+
+
+import .vl53l4.vl53l4cd show *
+
+
+
 
 blink-time := 500
 
 main:
   print "\n" *5 + "Axiometa Genesis ESP32-S3:"
 
+  // onboard led
   user-led := gpio.Pin GPIO-LED --output
   task :: while true: 
     user-led.set 1
@@ -20,9 +29,9 @@ main:
     sleep --ms=blink-time*3
 
 
+  // boot button
   boot-button := gpio.Pin GPIO-BOOT --input --pull-up=true
   task :: while true:
-
     boot-button.wait_for 0
     blink-time = 125
     print "- boot button pressed"
@@ -33,7 +42,55 @@ main:
 
 
 
+  // =======================================================
+  // Time of flight sensor ToF 0015 AX022-0015 #5 2 I2C
+  print "ToF VL53L0X"
 
+  //data := gpio.Pin (AX22.gpio 5 2)
+  gpio-sda := gpio.Pin GPIO-SDA
+  gpio-scl := gpio.Pin GPIO-SCL
+  i2c-bus := i2c.Bus --sda=gpio-sda --scl=gpio-scl --frequency=100_000
+
+
+  VL53_ADDR ::= 41
+  //VL53_XSHUNT_1 ::= 47
+  //VL53_INT_1 ::= 21
+
+  xshunt-pin := (AX22.gpio 5 2)
+  sensor := VL53L4CD i2c-bus "VL53L" xshunt-pin VL53-ADDR
+  
+  sensor.xshut-pin_.set 1
+  print "Scan before: $i2c-bus.scan"
+  print "Sensor ID: $sensor.get-id Module Type: $sensor.get-module-type"
+  //sensor.init
+
+
+  5.repeat:
+    print "\n#$it"
+    sensor.enable
+
+    //sensor.set-mode MODE-DEFAULT
+    //sensor.start-temperature-update
+    //threashold-mm := sensor.get-height-trigger-threshold 25 10
+    //sensor.set-mode MODE-LOW-POWER
+    sensor.set-signal-threshold 500
+    //sensor.set-sigma-threshold 10
+
+    result/Result := sensor.get-result
+    print "[$sensor.name]: Distance: $(%4d result.distance-mm) mm [$result.get-status-string]" 
+    print "Clearing interrupt for $sensor.name"
+    sensor.clear-interrupt
+    sleep --ms=1000
+
+
+
+
+  //
+  print "WAIT"
+  while true: sleep --ms=1000
+
+
+  // =======================================================
   // MicroPhone AX22-0009 #2 1
   if false:
     print "MicroPhone"
@@ -125,6 +182,9 @@ main:
     print "- D-Pad $BUTTON[dpad-state] clicked"
     while get-percent.call < THRESHOLDS[0]: sleep --ms=100  
 
+
+
+  // ======== vibration ============
 
   // Vibration Switch AX22-0025 #4 2
   print "Vibration switch"
